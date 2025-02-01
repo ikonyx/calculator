@@ -48,7 +48,6 @@ keys.addEventListener('click', (event) => {
     if (!target.matches('button')) {
         return;
     }
-    
 
     if(target.classList.contains('operator')) {
         handleOperator(target.value);
@@ -99,9 +98,14 @@ const handleOperator = (nextOperator) => {
         calculator.firstOperand = inputValue;
     } else if (operator) {
         const ans = operate(firstOperand, inputValue, operator);
-
-        calculator.displayValue = `${parseFloat(ans.toFixed(6))}`;
-        calculator.firstOperand = ans;     
+        
+        if (inputValue === 0 && operator === "/") {
+            calculator.displayValue = "0xM1ndbl0wn 🤯";
+            resetParameters();
+        } else {
+            calculator.displayValue = `${parseFloat(ans.toFixed(6))}`;
+            calculator.firstOperand = ans;
+        }     
     }
 
     calculator.secondOperand = true;
@@ -123,6 +127,12 @@ const inputDot = (dot) => {
 
 const resetDisplay = () => {
     calculator.displayValue =  "0";
+    calculator.firstOperand = null;
+    calculator.secondOperand = false;
+    calculator.operator = null;
+};
+
+const resetParameters = () => {
     calculator.firstOperand = null;
     calculator.secondOperand = false;
     calculator.operator = null;
