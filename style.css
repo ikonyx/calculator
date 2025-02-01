@@ -59,8 +59,13 @@ button {
     border-radius: 16px;
 }
 
-#clear {
+.clear {
     background-color: #fcb150;
+    width: 146px;
+}
+
+.equal {
+    width: 146px;
 }
 
 .number {
