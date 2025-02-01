@@ -99,7 +99,7 @@ const handleOperator = (nextOperator) => {
         calculator.firstOperand = inputValue;
     } else if (operator) {
         const ans = operate(firstOperand, inputValue, operator);
-        
+
         calculator.displayValue = `${parseFloat(ans.toFixed(6))}`;
         calculator.firstOperand = ans;     
     }
@@ -119,4 +119,11 @@ const inputDot = (dot) => {
     if (!calculator.displayValue.includes(dot)) {
         calculator.displayValue += dot;
     }
-}
+};
+
+const resetDisplay = () => {
+    calculator.displayValue =  "0";
+    calculator.firstOperand = null;
+    calculator.secondOperand = false;
+    calculator.operator = null;
+};
