@@ -1,7 +1,3 @@
-let num1;
-let num2;
-let ans;
-
 const calculator = {
     displayValue: "0",
     firstOperand: null,
@@ -35,14 +31,14 @@ function divide(a,b) {
 }
 
 function operate(num1, num2, operator) {
-    if (operator == "+") {
-        add(num1, num2);
-    } else if (operator == "-") {
-        substract(num1, num2);
-    } else if (operator == "*") {
-        multiply(num1, num2);
-    } else if (operator == "/") {
-        divide(num1, num2);
+    if (operator === "+") {
+        return add(num1, num2);
+    } else if (operator === "-") {
+        return substract(num1, num2);
+    } else if (operator === "*") {
+        return multiply(num1, num2);
+    } else if (operator === "/") {
+        return divide(num1, num2);
     }
 }
 
@@ -55,7 +51,7 @@ keys.addEventListener('click', (event) => {
     
 
     if(target.classList.contains('operator')) {
-        handleOperator(target.textContent);
+        handleOperator(target.value);
         updateDisplay();
         return;
     }
@@ -102,10 +98,10 @@ const handleOperator = (nextOperator) => {
     if (firstOperand == null && inputValue !== NaN ) {
         calculator.firstOperand = inputValue;
     } else if (operator) {
-        const ans = operate(firstOperand, inputValue, operator)
-
+        const ans = operate(firstOperand, inputValue, operator);
+        
         calculator.displayValue = `${parseFloat(ans.toFixed(6))}`;
-        calculator.firstOperand = ans;
+        calculator.firstOperand = ans;     
     }
 
     calculator.secondOperand = true;
