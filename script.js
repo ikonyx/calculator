@@ -1,7 +1,7 @@
 const calculator = {
     displayValue: "0",
     firstOperand: null,
-    secondOperand: false,
+    waitingSecondOperand: false,
     operator: null,
 };
 
@@ -67,29 +67,36 @@ keys.addEventListener('click', (event) => {
         return;
     }
 
+    if(target.classList.contains('delete')) {
+        deleteLastDigit(target.textContent);
+        updateDisplay();
+        return;
+    }
+
         inputDigit(target.textContent);
         updateDisplay();
 
     });
 
 const inputDigit = (digit) => {
-    const { displayValue, secondOperand } = calculator;
+    const { displayValue, waitingSecondOperand } = calculator;
 
-    if(secondOperand === true) {
+    if(waitingSecondOperand === true) {
         calculator.displayValue = digit;
-        calculator.secondOperand = false;   
+        calculator.waitingSecondOperand = false;   
     } else {
         calculator.displayValue = displayValue === "0" ? 
         digit: displayValue + digit;
     }
 }
 
+let ans;
 
 const handleOperator = (nextOperator) => {
     const { firstOperand, displayValue, operator} = calculator;
     const inputValue = parseFloat(displayValue);
 
-    if (operator && calculator.secondOperand) {
+    if (operator && calculator.waitingSecondOperand) {
         calculator.operator = nextOperator;
         return
     }
@@ -97,7 +104,7 @@ const handleOperator = (nextOperator) => {
     if (firstOperand == null && inputValue !== NaN ) {
         calculator.firstOperand = inputValue;
     } else if (operator) {
-        const ans = operate(firstOperand, inputValue, operator);
+        ans = operate(firstOperand, inputValue, operator);
         
         if (inputValue === 0 && operator === "/") {
             calculator.displayValue = "0xM1ndbl0wn 🤯";
@@ -108,15 +115,15 @@ const handleOperator = (nextOperator) => {
         }     
     }
 
-    calculator.secondOperand = true;
+    calculator.waitingSecondOperand = true;
     calculator.operator = nextOperator;
 
 };
 
 const inputDot = (dot) => {
-    if (calculator.secondOperand === true) {
+    if (calculator.waitingSecondOperand === true) {
         calculator.displayValue = "0.";
-        calculator.secondOperand = false;
+        calculator.waitingSecondOperand = false;
         return;
     }
 
@@ -125,15 +132,25 @@ const inputDot = (dot) => {
     }
 };
 
+const deleteLastDigit = () => {
+
+    if (ans !== parseFloat(calculator.displayValue)) { 
+        calculator.displayValue = Math.floor(calculator.displayValue/10);
+    }
+    
+    
+
+}
+
 const resetDisplay = () => {
     calculator.displayValue =  "0";
     calculator.firstOperand = null;
-    calculator.secondOperand = false;
+    calculator.waitingSecondOperand = false;
     calculator.operator = null;
 };
 
 const resetParameters = () => {
     calculator.firstOperand = null;
-    calculator.secondOperand = false;
+    calculator.waitingSecondOperand = false;
     calculator.operator = null;
 };
