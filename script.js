@@ -42,9 +42,15 @@ function operate(num1, num2, operator) {
     }
 }
 
+const play = () => {
+    var audio = document.getElementById("audio");
+    audio.play();
+}
+
 const keys = document.querySelector('.container');
 keys.addEventListener('click', (event) => {
     const { target } = event;
+    play();
     if (!target.matches('button')) {
         return;
     }
@@ -87,7 +93,7 @@ const inputDigit = (digit) => {
     } else {
         calculator.displayValue = displayValue === "0" ? 
         digit: displayValue + digit;
-    }
+    } 
 }
 
 let ans;
