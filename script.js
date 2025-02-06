@@ -8,7 +8,7 @@ const calculator = {
 const updateDisplay = () => {
     const display = document.querySelector(".display");
 
-    if (calculator.displayValue.toString().length <= 13) {
+    if (calculator.displayValue.toString().length <= 15) {
         display.textContent = calculator.displayValue;  
     } else {
         display.textContent = Number.parseFloat(calculator.displayValue).toExponential(3);
